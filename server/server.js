@@ -20,13 +20,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('createMessage', (message) => {
-        console.log("Create Message", message);
-    });
-
-    socket.emit("newMessage", {
-        from: 'John',
-        text: "Hello Max",
-        createdAt: 123321
+        io.emit('newMessage', {
+            ...message,
+            createdAt: new Date().getTime()
+        });
     });
 });
 
