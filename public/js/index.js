@@ -20,12 +20,12 @@ socket.on('newLocationMessage', function(message) {
 $("#message-form").on('submit', function(e) {
     e.preventDefault();
 
+    var messageTextBox = $('[name=message]');
     socket.emit('createMessage', {
         from: 'Melas',
-        text: $('[name=message]').val()
-    }, function(data) {
-        console.log('Got it');
-        console.log(data);
+        text: messageTextBox.val()
+    }, function() {
+        messageTextBox.val('');
     });
 });
 
@@ -35,13 +35,21 @@ locationButton.on('click', function(e) {
         return alert('Geolocation is not supported by your browser');
     }
 
+    $(this).attr('disabled', 'disabled');
+    $(this).text('SENDING LOCATION ...');
+
     navigator.geolocation.getCurrentPosition(function(position) {
         socket.emit('createLocationMessage', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
-        }, function() {})
+        }, function() {
+            locationButton.removeAttr('disabled');
+            locationButton.text('SEND LOCATION');
+        })
     }, function(err) {
         alert('Unable to fetch location');
+        locationButton.removeAttr('disabled');
+        locationButton.text('SEND LOCATION');
     });
 });
 
