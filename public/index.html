@@ -7,9 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Hello world</h1> 
+    <h1>Welcome to the chat app</h1>
     
+    <ol id="messages">
+
+    </ol>
+
+    <form id="message-form">
+        <input name="message" type="text" placeholder="Message "/>
+        <button type="submit">SEND</button>
+    </form>
+    
+
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery.min.js"></script>
     <script src="/js/index.js"></script>
 </body>
 </html>
