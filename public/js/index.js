@@ -9,12 +9,13 @@ socket.on('disconnect', function () {
 });
 
 socket.on('newMessage', function(message) {
-    console.log("New message", message);
-    $("#messages").append(`<li>${message.from}: ${message.text}</li>`);
+    var timestamp = moment(message.createdAt).format("H:mm a");
+    $("#messages").append(`<li>${message.from} ${timestamp}: ${message.text}</li>`);
 });
 
 socket.on('newLocationMessage', function(message) {
-    $("#messages").append(`<li>${message.from}: <a target="_blank" href="${message.url}">View my current location</a></li>`)
+    var timestamp = moment(message.createdAt).format("H:mm a");
+    $("#messages").append(`<li>${message.from} ${timestamp}: <a target="_blank" href="${message.url}">View my current location</a></li>`)
 });
 
 $("#message-form").on('submit', function(e) {
